@@ -11,27 +11,44 @@ namespace TesteDeListas
     {
         public static void CriarPastas(List<string> pathFile)
         {
-            string s = String.Join(@"\", pathFile);// Cria uma string formada pelos elementos da lista separados pelo caractere "\".
-
-            if (Directory.Exists(s.Remove(s.LastIndexOf(@"\"))))// Verifica se o caminho onde a pasta vai ser criada existe.
+            if (Directory.Exists(pathFile[0]))
             {
-                if (!Directory.Exists(s))
+                foreach (string s in pathFile)
                 {
-                    string nomeDaPasta;
+                    if (!Directory.Exists(s))
+                    {
+                        string nomeDaPasta;
 
-                    nomeDaPasta = s.Substring(s.LastIndexOf(@"\") + 1);// Insere o nome da ultima pasta criada na string nomeDaPasta.
+                        nomeDaPasta = s.Substring(s.LastIndexOf(@"\") + 1);// Insere o nome da ultima pasta criada na string nomeDaPasta.
 
-                    Directory.CreateDirectory(s);
-                    Console.Write("Pasta '{0}' criada \n", nomeDaPasta);// Retorna o nome da pasta criada.
-                }
-                else
-                {
-                    Console.WriteLine("Pasta já existe. \n");
+                        Console.Write("\n\nO endereço da nova pasta é: " + s + "\n\n");
+                        Directory.CreateDirectory(s);
+                        Console.Write("Pasta '{0}' criada \n", nomeDaPasta);// Retorna o nome da pasta criada.
+                    }
                 }
             }
             else
             {
-                Console.Write("Caminho não existe. \n");
+                Console.Write("\n\nCaminho não existe\n\n");
+            }
+        }
+
+        public static void AdicionarEndereco(List<string> pathFile)
+        {
+            if (pathFile.Count == 0)
+            {
+                pathFile.Add(Console.ReadLine());
+            }
+            else
+            {
+                string s = String.Empty;
+
+                foreach (string obj in pathFile)
+                {
+                    s += obj;
+                }
+
+                pathFile.Add(s + @"\" + Console.ReadLine());
             }
         }
     }
