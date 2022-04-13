@@ -30,12 +30,12 @@ namespace TesteDeListas
             if (Directory.Exists(enderecos[enderecos.Count()-1]))// Verifica se alguma pasta foi criada ou se já existia alguma pasta com o nome digitado.
             {
                 string resposta = "";
+                string comparador = "";
 
                 while (resposta != "s" && resposta != "n")
                 {
                     Console.Write("Deseja criar subpasta? s(sim) n(não) : ");
                     resposta = Console.ReadLine();
-                    string comparador = "";
 
                     switch (resposta)
                     {
@@ -49,7 +49,10 @@ namespace TesteDeListas
                             }
                             else
                             {
-                                //Continuar 
+                                Console.Write("Digite o nome da pasta: ");
+                                Pastas.AdicionarEndereco(comparador,enderecos);
+                                Pastas.CriarPastas(enderecos);// Chamada do método 'CriarPastas' da classe 'Pastas' passando a string 'enderecos' como parâmetro.
+                                resposta = "";
                             }
                             break;
 
@@ -66,15 +69,20 @@ namespace TesteDeListas
                                     case "s":
                                         Console.Write("Digite o enderecos: ");
                                         comparador = Console.ReadLine();
+                                        int cont = 0;
 
                                         foreach (string obj in enderecos)
                                         {
-                                            if (obj.Contains(comparador))
+                                            if (obj.Equals(comparador))
                                             {
-                                                comparador += obj;
+                                                comparador = obj;
+                                                cont++;
+
+                                                Console.Write("\n\nOBJ-------" + obj + "--------\n\n");// Apenas para testes.
+                                                Console.Write("\n\nCOMPARADOR-------" + comparador + "--------\n\n");// Apenas para testes.
                                             }                                                
                                         }
-                                        if (comparador == "")
+                                        if (cont == 0)
                                         {
                                             Console.WriteLine("Endereço não existe.");
                                             opcao = "";

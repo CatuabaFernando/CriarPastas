@@ -22,6 +22,9 @@ namespace TesteDeListas
                         nomeDaPasta = s.Substring(s.LastIndexOf(@"\") + 1);// Insere o nome da ultima pasta criada na string nomeDaPasta.
 
                         Console.Write("\n\nO endereço da nova pasta é: " + s + "\n\n");
+
+                        Console.ReadKey();// Apenas para testes.
+
                         Directory.CreateDirectory(s);
                         Console.Write("Pasta '{0}' criada \n", nomeDaPasta);// Retorna o nome da pasta criada.
                     }
@@ -41,15 +44,17 @@ namespace TesteDeListas
             }
             else
             {
-                string s = String.Empty;
-
-                foreach (string obj in pathFile)
-                {
-                    s += obj;
-                }
-
-                pathFile.Add(s + @"\" + Console.ReadLine());
+                pathFile.Add(pathFile[pathFile.Count - 1] + @"\" + Console.ReadLine());
             }
+        }
+
+        public static void AdicionarEndereco(string caminho, List<string> pathFile)
+        {
+            string nomeDaPasta = Console.ReadLine();
+            nomeDaPasta = @"\" + nomeDaPasta;
+            caminho += nomeDaPasta;
+
+            pathFile.Add(caminho);
         }
     }
 }
