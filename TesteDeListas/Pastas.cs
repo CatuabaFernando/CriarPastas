@@ -11,28 +11,37 @@ namespace TesteDeListas
     {
         public static void CriarPastas(List<string> pathFile)
         {
-            if (Directory.Exists(pathFile[0]))
+            if (pathFile.Count > 0)
             {
-                foreach (string s in pathFile)
+                if (Directory.Exists(pathFile[0]))
                 {
-                    if (!Directory.Exists(s))
+                    foreach (string s in pathFile)
                     {
-                        string nomeDaPasta;
+                        if (!Directory.Exists(s))
+                        {
+                            string nomeDaPasta;
 
-                        nomeDaPasta = s.Substring(s.LastIndexOf(@"\") + 1);// Insere o nome da ultima pasta criada na string nomeDaPasta.
+                            nomeDaPasta = s.Substring(s.LastIndexOf(@"\") + 1);// Insere o nome da ultima pasta criada na string nomeDaPasta.
 
-                        Console.Write("\n\nO endereço da nova pasta é: " + s + "\n\n");
-
-                        Console.ReadKey();// Apenas para testes.
-
-                        Directory.CreateDirectory(s);
-                        Console.Write("Pasta '{0}' criada \n", nomeDaPasta);// Retorna o nome da pasta criada.
+                            try
+                            {
+                                Directory.CreateDirectory(s);
+                                Console.Write("Pasta '{0}' criada \n", nomeDaPasta);// Retorna o nome da pasta criada.
+                            }
+                            catch (Exception)
+                            {
+                                if (!s.Contains("*"))
+                                {
+                                    Console.Write("\n\n\n---------Erro ao tentar criar a pasta com o caminho: " + s + "---------" + "\n\n\n");
+                                }
+                            }
+                        }
                     }
                 }
-            }
-            else
-            {
-                Console.Write("\n\nCaminho não existe\n\n");
+                else
+                {
+                    Console.Write("\n\nCaminho não existe.\n\n");
+                }
             }
         }
 
