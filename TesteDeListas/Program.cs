@@ -23,8 +23,44 @@ namespace TesteDeListas
                 switch (modelo)
                 {
                     case "s":
-                        Arquivos.LerTxt(enderecos);// Adiciona os endereços contidos no txt selecionado na lista 'endereços'.
-                        Pastas.CriarPastas(enderecos);//Cria as pastas nos endereços contidos na lista e'endereços'.
+
+                        // ESSA PARTE DO CODIGO ESTAVA FUNCIOANDO NÃO APAGAR.
+                        /*Arquivos.LerTxt(enderecos);// Adiciona os endereços contidos no txt selecionado na lista 'endereços'.
+                        Pastas.CriarPastas(enderecos);//Cria as pastas nos endereços contidos na lista e'endereços'.*/
+
+
+                        string[] teste = 
+                            {
+                                @"C:\PASTA",
+                                @"C:\PASTA\INSIRA_O_NOME",
+                                @"C:\PASTA\INSIRA_O_NOME\PROGRAMA",
+                                @"C:\PASTA\INSIRA_O_NOME\DESENHO",
+                                @"C:\PASTA\INSIRA_O_NOME\DESENHO\3D"
+                            };
+
+
+
+                        string[] arquivos = Directory.GetFiles(@"C:\PASTA", "*.xlsx");// Retornar apenas arquivos com a extensão selecionada.           
+
+                        foreach (string obj in arquivos)
+                        {
+                            Console.Write("--> " + Path.GetFileNameWithoutExtension(obj) + "\n");
+
+                            foreach (string item in teste)
+                            {
+                                string s = item.Replace("INSIRA_O_NOME", Path.GetFileNameWithoutExtension(obj));
+                                Console.Write("--> " + s + "\n");
+
+                                enderecos.Add(s);
+                            }
+                        }
+
+                        Pastas.CriarPastas(enderecos);
+
+                        foreach (string obj in arquivos)
+                        {
+                            File.Move(obj, @"C:\PASTA\" + Path.GetFileNameWithoutExtension(obj) + @"\DESENHO\3D\" + Path.GetFileName(obj));// Move o arquivos  
+                        }
 
                         Console.Write("\n Digite qualquer coisa para sair.");
 
@@ -32,7 +68,7 @@ namespace TesteDeListas
                         break;
 
                     case "n":
-                        Console.Write("Digite o endereço da pasta: ");
+                        /*Console.Write("Digite o endereço da pasta: ");
                         Pastas.AdicionarEndereco(enderecos);
 
                         Console.Write("Digite o nome da pasta: ");
@@ -120,7 +156,7 @@ namespace TesteDeListas
                                         break;
                                 }
                             }
-                        }
+                        }*/
                         Console.Write("\n Digite qualquer coisa para sair.");
                         Console.ReadKey();
                         break;
